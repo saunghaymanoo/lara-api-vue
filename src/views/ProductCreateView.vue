@@ -30,7 +30,10 @@
                         </div>
                     </div>
                     <div class="col-12 text-center">
-                        <button class="btn btn-primary">Create</button>
+                        <button :disabled="isLoading" class="btn btn-primary">
+                            <span v-if="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Add Product
+                        </button>
                     </div>
                 </form>
             </div>
@@ -46,7 +49,8 @@ import { mapGetters } from 'vuex';
     export default {
         data() {
             return {
-                errors: {}
+                errors: {},
+                isLoading:false
             }
         },
         components: { Input },
@@ -57,7 +61,7 @@ import { mapGetters } from 'vuex';
         },
         methods: {
             showToast(icon,message) {
-            const Toast = Swal.mixin({
+                const Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top-end',
                                 showConfirmButton: false,
@@ -76,6 +80,7 @@ import { mapGetters } from 'vuex';
             
             },
             addProduct() {
+                this.isLoading = true;
                 let formData = new FormData(this.$refs.productCreate);
                 axios.post(this.getUrl('/products'),formData)
                 .then(res => {
@@ -94,6 +99,7 @@ import { mapGetters } from 'vuex';
                     }
                     
                 })
+                .finally(_=>this.isLoading=false)
             }
         },
     }

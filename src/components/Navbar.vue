@@ -73,7 +73,8 @@ import { mapGetters, mapState } from 'vuex'
                       this.$store.dispatch('logout');
                       this.$router.push('/login');
                     }
-                  })      
+                  })
+                  .finally(_=>this.$router.push('/login'));      
             }
         },
     }

@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { mapGetters, mapState } from 'vuex'
     export default {
         computed: {
