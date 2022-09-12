@@ -41,8 +41,11 @@ import { mapGetters, mapState } from 'vuex'
                 }).then(res => res.json())
                 .then(json => {
                     if(json.success == true){
+                        localStorage.setItem('auth',JSON.stringify(json.auth));
+                        localStorage.setItem('token',json.token);
                         this.$store.dispatch('setAuth',json.auth);
                         this.$store.dispatch('setToken',json.token);
+                        axios.defaults.headers.common['Authorization'] = "Bearer "+localStorage.getItem('token');
                         this.$router.push('/dashboard')
                     }
                 })
