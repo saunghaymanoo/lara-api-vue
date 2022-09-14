@@ -42,8 +42,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <Pagination v-if="rows.meta" :links="rows.meta.links" @fetchLink = "fetchProducts"/>
-                <Model v-if="isShowModel" :product="product"/>
+                <div class="d-flex justify-content-between">
+                    <Pagination v-if="rows.meta" :links="rows.meta.links" @fetchLink = "fetchProducts"/>
+                    <Search @search="search" />
+                </div>
             </div>
         </div>
     </div>
@@ -53,8 +55,9 @@
 import axios from 'axios'
 import { mapGetters } from 'vuex'
 import Pagination from '@/components/Pagination.vue'
+import Search from '@/components/Search.vue'
     export default {
-  components: { Pagination },
+  components: { Pagination, Search },
         data() {
             return {
                 rows: {},
@@ -67,6 +70,9 @@ import Pagination from '@/components/Pagination.vue'
             ])
         },
         methods: {
+            search(keyword){
+                this.fetchProducts(this.getUrl("/products?keyword="+keyword))
+            },
             fetchProducts(url) {
                 axios.get(url)
                 .then(res =>{

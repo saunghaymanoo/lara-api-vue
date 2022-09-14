@@ -46,6 +46,7 @@ import Input from '@/components/Input.vue'
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { mapGetters } from 'vuex';
+import debounce from 'lodash/debounce';
     export default {
         data() {
             return {
@@ -79,7 +80,7 @@ import { mapGetters } from 'vuex';
                                 })
             
             },
-            addProduct() {
+            addProduct:debounce(function() {
                 this.isLoading = true;
                 let formData = new FormData(this.$refs.productCreate);
                 axios.post(this.getUrl('/products'),formData)
@@ -100,7 +101,7 @@ import { mapGetters } from 'vuex';
                     
                 })
                 .finally(_=>this.isLoading=false)
-            }
+            },100)
         },
     }
 </script>
