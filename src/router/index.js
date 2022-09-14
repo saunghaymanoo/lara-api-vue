@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView.vue'
 import DashboardView from '../views/DashboardView.vue'
 import ProductCreateView from '../views/ProductCreateView.vue'
 import ProductListView from '../views/ProductListView.vue'
+import ProductEditView from '../views/ProductEditView.vue'
 import store from '@/store'
 
 function needAuth(to,from,next){
@@ -61,6 +62,12 @@ const routes = [
     path: '/product/create',
     name: 'product.create',
     component: ProductCreateView,
+    beforeEnter:[needAuth]
+  },
+  {
+    path: '/product/edit/:id',
+    name: 'product.edit',
+    component: ProductEditView,
     beforeEnter:[needAuth]
   }
 ]

@@ -1,6 +1,6 @@
 <template>
      <label :for="name">{{label}}</label>
-     <input :type="type" :name="name" class="form-control" :class="{'is-invalid':errors[name]}" />
+     <input :type="type" :name="name" class="form-control" :value="value" :class="{'is-invalid':errors[name]}" />
      <div class="invalid-feedback" v-if="errors[name]">{{errors[name][0]}}</div>
 </template>
 
@@ -21,6 +21,9 @@
             },
             errors:{
                 type:Object,
+            },
+            value:{
+                default:null
             }
         },
     }
